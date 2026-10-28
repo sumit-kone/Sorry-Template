@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>I’m Sorry 💗</title>
+<style>
+:root{--a:#e8349f;--b:#7a5cff;--bg1:#fff1f8;--bg2:#efe6ff;--card:#ffffffe6;--tx:#3b2255;--p:#5a4377;--line:#3b225522;--soft:#7a5cff14}
+body[data-theme=sunset]{--a:#f0562f;--b:#ff9f43;--bg1:#fff4ec;--bg2:#ffe3dc}
+body[data-theme=ocean]{--a:#0f8fd6;--b:#4f7bff;--bg1:#eaf8ff;--bg2:#e1e7ff}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{min-height:100vh;color:var(--tx);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+ background:radial-gradient(circle at top,var(--bg1),var(--bg2) 70%);background-attachment:fixed;overflow-x:hidden;transition:background .6s}
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+main{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:calc(84px + env(safe-area-inset-top)) 18px 80px}
+section{scroll-margin-top:90px;background:var(--card);backdrop-filter:blur(14px);border:1px solid color-mix(in srgb,var(--a) 45%,transparent);
+ border-radius:26px;padding:28px 22px;margin:22px 0;text-align:center;
+ box-shadow:0 0 30px color-mix(in srgb,var(--a) 20%,transparent);opacity:0;transform:translateY(30px);transition:.9s}
+section.in{opacity:1;transform:none}
+.heart{font-size:72px;display:inline-block;animation:beat 1.3s infinite;filter:drop-shadow(0 0 16px var(--a))}
+h1{font-size:clamp(2.3rem,11vw,3.4rem);margin:10px 0;background:linear-gradient(90deg,var(--a),var(--b),var(--a));
+ background-size:300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
+h2{font-size:1.35rem;margin-bottom:14px;color:var(--a)}
+p{line-height:1.8;color:var(--p)}
+#type{min-height:7.5em;margin-top:10px;font-size:1.05rem}
+#type::after{content:"|";animation:blink 1s infinite;color:var(--a)}
+.btn{font:inherit;padding:13px 22px;margin:6px;border:1px solid var(--a);border-radius:30px;color:#fff;cursor:pointer;
+ background:linear-gradient(90deg,var(--b),var(--a));box-shadow:0 0 18px color-mix(in srgb,var(--a) 40%,transparent);
+ transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden}
+.btn:hover{transform:scale(1.07);box-shadow:0 0 30px var(--a)}
+.btn:active{transform:scale(.95)}
+.btn .rip{position:absolute;border-radius:50%;background:#fff6;transform:scale(0);animation:rip .6s linear;pointer-events:none}
+.ghost{background:#fff;color:var(--a);box-shadow:none}
+.grid{display:grid;gap:12px}
+.flip{perspective:800px;height:120px;cursor:pointer}
+.flip>div{position:relative;width:100%;height:100%;transition:transform .7s;transform-style:preserve-3d}
+.flip.on>div{transform:rotateY(180deg)}
+.flip span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:14px;border-radius:18px;
+ backface-visibility:hidden;border:1px solid var(--a);font-size:.98rem}
+.flip .f{background:#fff;font-weight:600}
+.flip .k{transform:rotateY(180deg);background:linear-gradient(135deg,var(--b),var(--a));color:#fff}
+.promise{display:flex;align-items:center;gap:12px;padding:13px 14px;margin:9px 0;border-radius:16px;border:1px solid var(--line);background:#fff;
+ cursor:pointer;text-align:left;transition:.3s;user-select:none}
+.promise:hover{border-color:var(--a)}
+.promise i{width:26px;height:26px;border-radius:50%;border:2px solid var(--a);display:grid;place-items:center;font-style:normal;flex:none;transition:.3s}
+.promise.on{background:var(--soft)}.promise.on i{background:var(--a);transform:rotate(360deg)}
+.promise.on i::after{content:"✓";color:#fff}
+#sealed{margin-top:12px;min-height:1.6em;color:var(--a);font-weight:700}
+#no{transition:left .25s,top .25s}
+#final{color:var(--tx);display:none;position:fixed;inset:0;z-index:20;background:#fff7fbf5;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:24px}
+#final.show{display:flex;animation:fade .6s}
+#final .heart{font-size:110px}
+.tools{display:flex;gap:6px}
+.tools button,#burger{width:38px;height:38px;border-radius:50%;border:1px solid var(--a);background:#fff;color:var(--tx);font-size:16px;cursor:pointer;transition:.25s}
+#nav{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;gap:10px;padding:calc(8px + env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) 8px max(14px,env(safe-area-inset-left));background:#ffffffd9;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);box-shadow:0 4px 20px #3b225510}
+.brand{font-weight:800;color:var(--a);text-decoration:none;margin-right:auto;font-size:1.1rem}
+#links{display:flex;gap:4px}
+#links a{padding:8px 14px;border-radius:20px;color:var(--p);text-decoration:none;font-size:.92rem;transition:.25s}
+#links a:hover{background:var(--soft)}
+#links a.on{background:linear-gradient(90deg,var(--b),var(--a));color:#fff}
+#burger{display:none}
+@media(max-width:640px){#burger{display:block}#links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:#fffffff5;padding:8px 14px 14px;border-bottom:1px solid var(--line)}#links.open{display:flex}}
+.tools button:hover{transform:rotate(15deg) scale(1.12)}
+#panel{position:fixed;inset:auto 0 0 0;z-index:30;background:#fffffff7;border-top:2px solid var(--a);border-radius:24px 24px 0 0;padding:22px 18px calc(22px + env(safe-area-inset-bottom));
+ transform:translateY(105%);transition:transform .5s;max-width:560px;margin:0 auto}
+#panel.open{transform:none}
+#panel label{display:block;text-align:left;font-size:.85rem;margin:10px 0 4px;color:var(--p)}
+#panel input,#panel textarea{width:100%;padding:11px 13px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--tx);font:inherit}
+#panel textarea{height:90px;resize:vertical}
+small{display:block;margin-top:14px;color:#8a78a8}
+.fl{position:fixed;pointer-events:none;z-index:15;animation:up linear forwards}
+@keyframes beat{50%{transform:scale(1.16)}}
+@keyframes shine{to{background-position:300% 0}}
+@keyframes blink{50%{opacity:0}}
+@keyframes rip{to{transform:scale(4);opacity:0}}
+@keyframes fade{from{opacity:0}}
+@keyframes up{to{transform:translateY(-110vh) rotate(360deg);opacity:0}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body data-theme="love">
+<canvas id="bg"></canvas>
+
+<header id="nav">
+  <a class="brand" href="#s1">💗 Sorry</a>
+  <nav id="links">
+    <a href="#s1" class="on">Home</a><a href="#s2">Sorry For</a><a href="#s3">Promises</a><a href="#s4">Forgive</a>
+  </nav>
+  <div class="tools">
+    <button id="tTheme" title="Change colours" aria-label="Change colours">🎨</button>
+    <button id="tSound" title="Sound on/off" aria-label="Sound">🔇</button>
+    <button id="tEdit" title="Personalise &amp; share" aria-label="Personalise">✏️</button>
+  </div>
+  <button id="burger" aria-label="Menu">☰</button>
+</header>
+
+<main>
+  <section id="s1">
+    <div class="heart">💗</div>
+    <h1>I’m Sorry</h1>
+    <p>To my favourite person, <b id="toName">My Naz</b> 🌙</p>
+    <p id="type"></p>
+    <button class="btn" data-go="s2">Keep reading 💌</button>
+  </section>
+
+  <section id="s2">
+    <h2>Things I’m truly sorry for</h2>
+    <p style="margin-bottom:14px">Tap each card 👇</p>
+    <div class="grid">
+      <div class="flip"><div><span class="f">I hurt your feelings 💔</span><span class="k">You deserve kindness, not carelessness.</span></div></div>
+      <div class="flip"><div><span class="f">I let my ego talk 😔</span><span class="k">You matter far more than being right.</span></div></div>
+      <div class="flip"><div><span class="f">I didn’t listen enough 🎧</span><span class="k">From now on, I’ll listen first.</span></div></div>
+    </div>
+    <button class="btn" data-go="s3" style="margin-top:18px">What I promise ✨</button>
+  </section>
+
+  <section id="s3">
+    <h2>My promises to you</h2>
+    <div class="promise"><i></i>I will listen with patience</div>
+    <div class="promise"><i></i>I will think before I speak</div>
+    <div class="promise"><i></i>I will make more time for us</div>
+    <div class="promise"><i></i>I will never take you for granted</div>
+    <div id="sealed">Tap each promise to seal it 🤝</div>
+  </section>
+
+  <section id="s4">
+    <div class="heart">🥺</div>
+    <h2>Will you forgive me?</h2>
+    <p id="ask">Please? Just one little chance…</p>
+    <div style="min-height:64px;margin-top:12px">
+      <button class="btn" id="yes">Yes, I forgive you 💖</button>
+      <button class="btn ghost" id="no">No 😤</button>
+    </div>
+    <small>Made with love, just for you ✨</small>
+  </section>
+</main>
+
+<div id="final">
+  <div class="heart">🥹</div>
+  <h1>Thank You!</h1>
+  <p style="max-width:380px">I love you, <b class="toN">My Naz</b>. I’ll cherish this second chance — always. 💞<br>— <b class="fromN">Me</b></p>
+  <button class="btn" id="again" style="margin-top:20px">🔁 Replay</button>
+</div>
+
+<div id="panel">
+  <h2>Personalise &amp; share</h2>
+  <label>Her/His name</label><input id="iTo" maxlength="30" placeholder="e.g. Aisha">
+  <label>Your name</label><input id="iFrom" maxlength="30" placeholder="e.g. Rahul">
+  <label>Your message</label><textarea id="iMsg" maxlength="400"></textarea>
+  <div style="margin-top:14px">
+    <button class="btn" id="bApply">Apply</button>
+    <button class="btn" id="bCopy">🔗 Copy share link</button>
+    <button class="btn ghost" id="bClose">Close</button>
+  </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const P=new URLSearchParams(location.search);
+const cfg={
+ to:P.get('to')||'My Naz',
+ from:P.get('from')||'Me',
+ msg:P.get('msg')||"I know I hurt you, and I'm truly sorry. You mean more to me than my ego ever will. I don't want one bad moment to overshadow all the beautiful ones we've shared."
+};
+
+/* ---------- sound (WebAudio, no files needed) ---------- */
+let ac,soundOn=false;
+function tone(f=660,d=.25){
+ if(!soundOn)return;
+ try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+ const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;
+ g.gain.setValueAtTime(.12,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);
+ o.connect(g).connect(ac.destination);o.start();o.stop(ac.currentTime+d)}catch(e){}
+}
+$('#tSound').onclick=e=>{soundOn=!soundOn;e.target.textContent=soundOn?'🔊':'🔇';tone(880)};
+
+/* ---------- theme ---------- */
+const themes=['love','sunset','ocean'];let ti=0;
+$('#tTheme').onclick=()=>{ti=(ti+1)%3;document.body.dataset.theme=themes[ti];tone(520)};
+
+/* ---------- personalise ---------- */
+function apply(){
+ $('#toName').textContent=cfg.to;$$('.toN').forEach(e=>e.textContent=cfg.to);$$('.fromN').forEach(e=>e.textContent=cfg.from);
+ document.title="I’m Sorry, "+cfg.to+" 💗";
+}
+apply();
+$('#tEdit').onclick=()=>{$('#iTo').value=cfg.to;$('#iFrom').value=cfg.from;$('#iMsg').value=cfg.msg;$('#panel').classList.add('open')};
+$('#bClose').onclick=()=>$('#panel').classList.remove('open');
+$('#bApply').onclick=()=>{cfg.to=$('#iTo').value.trim()||'My Naz';cfg.from=$('#iFrom').value.trim()||'Me';
+ cfg.msg=$('#iMsg').value.trim()||cfg.msg;apply();typeMsg();$('#panel').classList.remove('open')};
+$('#bCopy').onclick=async e=>{
+ const u=location.origin+location.pathname+'?'+new URLSearchParams({to:$('#iTo').value||cfg.to,from:$('#iFrom').value||cfg.from,msg:$('#iMsg').value||cfg.msg});
+ try{await navigator.clipboard.writeText(u);e.target.textContent='✅ Copied!'}catch(x){prompt('Copy this link:',u)}
+ setTimeout(()=>e.target.textContent='🔗 Copy share link',2000)};
+
+/* ---------- typewriter ---------- */
+let tw;
+function typeMsg(){
+ clearInterval(tw);const el=$('#type');el.textContent='';let i=0;
+ tw=setInterval(()=>{el.textContent+=cfg.msg[i++]||'';if(i>=cfg.msg.length)clearInterval(tw)},35);
+}
+typeMsg();
+
+/* ---------- reveal on scroll + smooth nav ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.15});
+$$('section').forEach(s=>io.observe(s));
+$$('[data-go]').forEach(b=>b.addEventListener('click',()=>{tone(700);$('#'+b.dataset.go).scrollIntoView({behavior:'smooth',block:'center'})}));
+
+/* ---------- button ripple ---------- */
+document.addEventListener('click',e=>{
+ const b=e.target.closest('.btn');if(!b)return;
+ const r=b.getBoundingClientRect(),s=document.createElement('span');
+ s.className='rip';s.style.cssText=`width:40px;height:40px;left:${e.clientX-r.left-20}px;top:${e.clientY-r.top-20}px`;
+ b.appendChild(s);setTimeout(()=>s.remove(),600);
+});
+
+/* ---------- flip cards ---------- */
+$$('.flip').forEach(c=>c.onclick=()=>{c.classList.toggle('on');tone(c.classList.contains('on')?740:520);burst(['💗','✨'],6,c)});
+
+/* ---------- promises ---------- */
+$$('.promise').forEach(p=>p.onclick=()=>{
+ p.classList.toggle('on');tone(600+Math.random()*300);
+ const n=$$('.promise.on').length;
+ $('#sealed').textContent=n===4?'Promise sealed forever 🤝💖':n+' / 4 sealed';
+ if(n===4){burst(['💖','🤝','✨'],30);tone(990,.6)}
+});
+
+/* ---------- floating emoji burst ---------- */
+function burst(sy,n,from){
+ let x=innerWidth/2,y=innerHeight*.8;
+ if(from){const r=from.getBoundingClientRect();x=r.left+r.width/2;y=r.top+r.height/2}
+ for(let i=0;i<n;i++){
+  const e=document.createElement('span');e.className='fl';e.textContent=sy[Math.random()*sy.length|0];
+  e.style.left=(from?x+(Math.random()-.5)*120:Math.random()*innerWidth)+'px';
+  e.style.top=(from?y:innerHeight-20)+'px';
+  e.style.fontSize=(18+Math.random()*24)+'px';e.style.animationDuration=(2+Math.random()*3)+'s';
+  e.style.animationDelay=(i*40)+'ms';document.body.appendChild(e);setTimeout(()=>e.remove(),6000+i*40);
+ }
+}
+
+/* ---------- the "No" button runs away, "Yes" grows ---------- */
+let dodge=0;const no=$('#no'),yes=$('#yes');
+const lines=['Please? 🥺','Pretty please? 💕','You can’t catch it 😜','Just say yes! 💖','Look how big Yes is 😂','OK it’s hopeless 😅'];
+function run(e){
+ e.preventDefault();dodge++;
+ no.style.position='fixed';
+ no.style.left=Math.max(10,Math.random()*(innerWidth-no.offsetWidth-20))+'px';
+ no.style.top=Math.max(10,Math.random()*(innerHeight-no.offsetHeight-20))+'px';
+ yes.style.transform='scale('+Math.min(1+dodge*.15,2)+')';
+ $('#ask').textContent=lines[Math.min(dodge-1,lines.length-1)];
+ if(dodge>5)no.textContent='Fine… Yes 💗';
+ tone(300,.12);
+}
+no.addEventListener('mouseenter',run);no.addEventListener('touchstart',run,{passive:false});
+no.addEventListener('click',e=>{if(dodge>5)forgive();else run(e)});
+yes.onclick=forgive;
+function forgive(){
+ $('#final').classList.add('show');burst(['💗','💕','💖','✨','❤️','🎉'],70);
+ [523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,.5),i*180));
+}
+$('#again').onclick=()=>{$('#final').classList.remove('show');dodge=0;no.style.position='';no.textContent='No 😤';
+ yes.style.transform='';$('#ask').textContent='Please? Just one little chance…';scrollTo({top:0,behavior:'smooth'});typeMsg()};
+
+/* ---------- animated heart background ---------- */
+const cv=$('#bg'),cx=cv.getContext('2d');let W,H,hs=[];
+function size(){W=cv.width=innerWidth;H=cv.height=innerHeight}
+addEventListener('resize',size);size();
+for(let i=0;i<28;i++)hs.push({x:Math.random()*W,y:Math.random()*H,s:10+Math.random()*22,v:.2+Math.random()*.6,d:Math.random()*6,c:['♡','♥','✦'][i%3]});
+(function loop(t){
+ cx.clearRect(0,0,W,H);
+ const col=getComputedStyle(document.body).getPropertyValue('--a')||'#ff4fc3';
+ hs.forEach(h=>{h.y-=h.v;if(h.y<-40){h.y=H+40;h.x=Math.random()*W}
+  cx.globalAlpha=.25+.15*Math.sin(t/700+h.d);cx.fillStyle=col.trim();cx.font=h.s+'px serif';
+  cx.fillText(h.c,h.x+Math.sin(t/1200+h.d)*14,h.y)});
+ requestAnimationFrame(loop);
+})(0);
+
+/* ---------- top menu ---------- */
+const links=$$('#links a');
+$('#burger').onclick=()=>$('#links').classList.toggle('open');
+links.forEach(a=>a.addEventListener('click',e=>{e.preventDefault();tone(650);
+ $(a.getAttribute('href')).scrollIntoView({behavior:'smooth',block:'start'});$('#links').classList.remove('open')}));
+$('.brand').addEventListener('click',e=>{e.preventDefault();scrollTo({top:0,behavior:'smooth'})});
+const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)
+ links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -50% 0px'});
+$$('section').forEach(x=>spy.observe(x));
+</script>
+</body>
+</html>
+
+*/
